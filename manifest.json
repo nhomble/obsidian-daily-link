@@ -1,0 +1,9 @@
+{
+	"id": "obsidian-daily-link",
+	"name": "Daily Link",
+	"version": "0.1.0",
+	"minAppVersion": "1.4.0",
+	"description": "Automatically link every newly created note to today's daily note via a frontmatter property.",
+	"author": "Nicolas Homble",
+	"isDesktopOnly": false
+}
