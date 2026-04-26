@@ -34,7 +34,6 @@ export class DailyLinkSettingTab extends PluginSettingTab {
 			)
 			.addText((text) =>
 				text
-					.setPlaceholder("notes")
 					.setValue(this.plugin.settings.propertyName)
 					.onChange(async (value) => {
 						this.plugin.settings.propertyName =
@@ -50,7 +49,6 @@ export class DailyLinkSettingTab extends PluginSettingTab {
 			)
 			.addText((text) =>
 				text
-					.setPlaceholder("md")
 					.setValue(this.plugin.settings.allowedExtensions.join(", "))
 					.onChange(async (value) => {
 						this.plugin.settings.allowedExtensions = value
@@ -68,7 +66,6 @@ export class DailyLinkSettingTab extends PluginSettingTab {
 			)
 			.addText((text) =>
 				text
-					.setPlaceholder("templates, archive")
 					.setValue(this.plugin.settings.excludedFolders.join(", "))
 					.onChange(async (value) => {
 						this.plugin.settings.excludedFolders = value

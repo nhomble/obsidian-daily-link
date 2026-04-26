@@ -52,7 +52,7 @@ export default class DailyLinkPlugin extends Plugin {
 		if (isExcluded(file.path, this.settings.excludedFolders)) return;
 
 		if (!appHasDailyNotesPluginLoaded()) {
-			new Notice("Daily Link: core Daily Notes plugin is not enabled.");
+			new Notice("Core daily notes plugin is not enabled.");
 			return;
 		}
 
@@ -72,7 +72,7 @@ export default class DailyLinkPlugin extends Plugin {
 		const key = this.settings.propertyName;
 
 		await this.app.fileManager.processFrontMatter(daily, (fm) => {
-			upsertLink(fm, key, linkText);
+			upsertLink(fm as Record<string, unknown>, key, linkText);
 		});
 	}
 }
