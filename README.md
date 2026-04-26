@@ -1,4 +1,4 @@
-# Daily Link
+# Daily Note Linker
 
 Obsidian plugin that automatically links every newly created note to the day's daily note, weaving temporal connections into your graph without manual upkeep.
 
@@ -6,7 +6,7 @@ Obsidian plugin that automatically links every newly created note to the day's d
 
 ## How it works
 
-When you create a note, Daily Link finds (or creates) today's daily note and upserts a wiki link in a configurable frontmatter property:
+When you create a note, Daily Note Linker finds (or creates) today's daily note and upserts a wiki link in a configurable frontmatter property:
 
 ```yaml
 ---
@@ -20,7 +20,7 @@ Renames are handled by Obsidian's native link tracking — no separate bookkeepi
 
 ## Install
 
-**Community catalog**: Settings → Community plugins → Browse → search "Daily Link".
+**Community catalog**: Settings → Community plugins → Browse → search "Daily Note Linker".
 
 **Beta via BRAT**: install [BRAT](https://github.com/TfTHacker/obsidian42-brat), then add `nhomble/obsidian-daily-link`.
 
