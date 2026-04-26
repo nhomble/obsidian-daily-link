@@ -20,7 +20,7 @@ Renames are handled by Obsidian's native link tracking — no separate bookkeepi
 
 ## Install
 
-**Community catalog** (once approved): Settings → Community plugins → Browse → search "Daily Link".
+**Community catalog**: Settings → Community plugins → Browse → search "Daily Link".
 
 **Beta via BRAT**: install [BRAT](https://github.com/TfTHacker/obsidian42-brat), then add `nhomble/obsidian-daily-link`.
 

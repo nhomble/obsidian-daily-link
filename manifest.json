@@ -1,9 +1,9 @@
 {
-	"id": "obsidian-daily-link",
-	"name": "Daily Link",
+	"id": "daily-note-linker",
+	"name": "Daily Note Linker",
 	"version": "0.1.1",
 	"minAppVersion": "1.4.0",
 	"description": "Automatically link every newly created note to today's daily note",
-	"author": "nhomble",
+	"author": "Nicolas Homble",
 	"isDesktopOnly": false
 }
