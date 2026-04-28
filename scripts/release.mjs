@@ -16,6 +16,6 @@ const { version } = JSON.parse(readFileSync("manifest.json", "utf8"));
 execSync("git push --follow-tags", { stdio: "inherit" });
 execSync("npm run build", { stdio: "inherit" });
 execSync(
-	`gh release create ${version} main.js manifest.json styles.css --title ${version} --notes "Release ${version}"`,
+	`gh release create ${version} main.js manifest.json --title ${version} --notes "Release ${version}"`,
 	{ stdio: "inherit" },
 );
