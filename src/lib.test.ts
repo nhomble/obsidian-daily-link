@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { isExcluded, upsertLink } from "./lib";
+import {
+	basenameFromPath,
+	isExcluded,
+	isUntitledBasename,
+	upsertLink,
+} from "./lib";
 
 describe("isExcluded", () => {
 	it("returns false when no folders configured", () => {
@@ -61,5 +66,48 @@ describe("upsertLink", () => {
 		const fm: Record<string, unknown> = { notes: link };
 		upsertLink(fm, key, link);
 		expect(fm[key]).toBe(link);
+	});
+});
+
+describe("isUntitledBasename", () => {
+	it("matches bare Untitled", () => {
+		expect(isUntitledBasename("Untitled")).toBe(true);
+	});
+
+	it("matches Untitled with numeric suffix", () => {
+		expect(isUntitledBasename("Untitled 1")).toBe(true);
+		expect(isUntitledBasename("Untitled 42")).toBe(true);
+	});
+
+	it("does not match names that merely start with Untitled", () => {
+		expect(isUntitledBasename("Untitled note")).toBe(false);
+		expect(isUntitledBasename("UntitledX")).toBe(false);
+	});
+
+	it("does not match real titles", () => {
+		expect(isUntitledBasename("Meeting notes")).toBe(false);
+		expect(isUntitledBasename("")).toBe(false);
+	});
+
+	it("is case sensitive", () => {
+		expect(isUntitledBasename("untitled")).toBe(false);
+	});
+});
+
+describe("basenameFromPath", () => {
+	it("strips folders and extension", () => {
+		expect(basenameFromPath("folder/sub/Untitled.md")).toBe("Untitled");
+	});
+
+	it("handles root files", () => {
+		expect(basenameFromPath("Untitled 1.md")).toBe("Untitled 1");
+	});
+
+	it("returns the name when no extension is present", () => {
+		expect(basenameFromPath("folder/Untitled")).toBe("Untitled");
+	});
+
+	it("keeps dotfiles intact", () => {
+		expect(basenameFromPath(".hidden")).toBe(".hidden");
 	});
 });
