@@ -8,6 +8,7 @@ import {
 import {
 	basenameFromPath,
 	isExcluded,
+	isSameLocalDay,
 	isUntitledBasename,
 	upsertLink,
 } from "./lib";
@@ -46,6 +47,8 @@ export default class DailyLinkPlugin extends Plugin {
 				if (!this.ready) return;
 				if (!(file instanceof TFile)) return;
 				if (!isUntitledBasename(basenameFromPath(oldPath))) return;
+				// Skip Untitled files that were created on a previous day.
+				if (!isSameLocalDay(file.stat.ctime, Date.now())) return;
 				void this.linkToDaily(file).catch((err) => {
 					console.error(
 						"daily-link: failed to link renamed note",

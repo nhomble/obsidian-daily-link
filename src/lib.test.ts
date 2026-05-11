@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
 	basenameFromPath,
 	isExcluded,
+	isSameLocalDay,
 	isUntitledBasename,
 	upsertLink,
 } from "./lib";
@@ -109,5 +110,36 @@ describe("basenameFromPath", () => {
 
 	it("keeps dotfiles intact", () => {
 		expect(basenameFromPath(".hidden")).toBe(".hidden");
+	});
+});
+
+describe("isSameLocalDay", () => {
+	it("returns true for identical timestamps", () => {
+		const t = new Date(2026, 4, 11, 9, 0, 0).getTime();
+		expect(isSameLocalDay(t, t)).toBe(true);
+	});
+
+	it("returns true within the same local day", () => {
+		const morning = new Date(2026, 4, 11, 0, 5, 0).getTime();
+		const evening = new Date(2026, 4, 11, 23, 55, 0).getTime();
+		expect(isSameLocalDay(morning, evening)).toBe(true);
+	});
+
+	it("returns false across midnight", () => {
+		const lastNight = new Date(2026, 4, 10, 23, 59, 0).getTime();
+		const today = new Date(2026, 4, 11, 0, 1, 0).getTime();
+		expect(isSameLocalDay(lastNight, today)).toBe(false);
+	});
+
+	it("returns false across months", () => {
+		const apr = new Date(2026, 3, 30, 12, 0, 0).getTime();
+		const may = new Date(2026, 4, 1, 12, 0, 0).getTime();
+		expect(isSameLocalDay(apr, may)).toBe(false);
+	});
+
+	it("returns false across years", () => {
+		const dec = new Date(2025, 11, 31, 23, 0, 0).getTime();
+		const jan = new Date(2026, 0, 1, 1, 0, 0).getTime();
+		expect(isSameLocalDay(dec, jan)).toBe(false);
 	});
 });
