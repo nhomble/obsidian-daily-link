@@ -5,7 +5,13 @@ import {
 	getAllDailyNotes,
 	getDailyNote,
 } from "obsidian-daily-notes-interface";
-import { isExcluded, upsertLink } from "./lib";
+import {
+	basenameFromPath,
+	isExcluded,
+	isSameLocalDay,
+	isUntitledBasename,
+	upsertLink,
+} from "./lib";
 import {
 	DEFAULT_SETTINGS,
 	DailyLinkSettings,
@@ -28,8 +34,26 @@ export default class DailyLinkPlugin extends Plugin {
 			this.app.vault.on("create", (file) => {
 				if (!this.ready) return;
 				if (!(file instanceof TFile)) return;
+				// New notes start as "Untitled"; wait for rename before linking.
+				if (isUntitledBasename(file.basename)) return;
 				void this.linkToDaily(file).catch((err) => {
 					console.error("daily-link: failed to link new note", err);
+				});
+			}),
+		);
+
+		this.registerEvent(
+			this.app.vault.on("rename", (file, oldPath) => {
+				if (!this.ready) return;
+				if (!(file instanceof TFile)) return;
+				if (!isUntitledBasename(basenameFromPath(oldPath))) return;
+				// Skip Untitled files that were created on a previous day.
+				if (!isSameLocalDay(file.stat.ctime, Date.now())) return;
+				void this.linkToDaily(file).catch((err) => {
+					console.error(
+						"daily-link: failed to link renamed note",
+						err,
+					);
 				});
 			}),
 		);
