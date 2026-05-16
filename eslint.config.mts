@@ -21,6 +21,10 @@ export default tseslint.config(
 			},
 		},
 	},
+	{
+		files: ["src/**/*.ts"],
+		extends: [...tseslint.configs.recommendedTypeChecked],
+	},
 	...obsidianmd.configs.recommended,
 	globalIgnores([
 		"node_modules",
