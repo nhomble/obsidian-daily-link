@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-daily-link",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Obsidian plugin that links every newly created note to the day's daily note.",
 	"main": "main.js",
 	"type": "module",
