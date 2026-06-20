@@ -36,6 +36,9 @@ export default class DailyLinkPlugin extends Plugin {
 				if (!(file instanceof TFile)) return;
 				// New notes start as "Untitled"; wait for rename before linking.
 				if (isUntitledBasename(file.basename)) return;
+				// Files moved/synced in from outside fire "create" but were
+				// authored earlier. Only link notes actually created today.
+				if (!isSameLocalDay(file.stat.ctime, Date.now())) return;
 				void this.linkToDaily(file).catch((err) => {
 					console.error("daily-link: failed to link new note", err);
 				});
